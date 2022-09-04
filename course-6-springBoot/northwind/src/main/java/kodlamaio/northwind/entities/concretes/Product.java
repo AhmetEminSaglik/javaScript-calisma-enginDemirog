@@ -1,16 +1,21 @@
 package kodlamaio.northwind.entities.concretes;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Generated;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "products")
-@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
     @Id
-    @GeneratedValue // Id 1'er 1'er artirilacak demektir
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Id 1'er 1'er artirilacak demektir
+    //strategy  -> vt bagli olarak degismektedir
     @Column(name = "product_id")
     private int id;
     @Column(name = "category_id")
@@ -23,8 +28,4 @@ public class Product {
     private short unitsInStock;
     @Column(name = "quantity_per_unit")
     private String quantityPerUnit;
-
-
-    public Product() {
-    }
 }
