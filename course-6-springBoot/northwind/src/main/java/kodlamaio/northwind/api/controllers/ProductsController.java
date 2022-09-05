@@ -8,6 +8,7 @@ import kodlamaio.northwind.entities.concretes.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 
 @RestController
@@ -31,9 +32,37 @@ public class ProductsController {
     }
 
     @PostMapping("/add")
-    public Result add(@RequestBody Product product) {
+    public Result add(@RequestBody Product product) { // body degerlerini gonderecek
         return productService.add(product);
     }
+
+    @GetMapping("/getByProductName")
+    public DataResult<Product>
+    getByProductName(@RequestParam String productName) {// parametre olarak gonderecek
+        return productService.getByProductName(productName);
+    }
+
+    @GetMapping("/getByProductNameAndCategoryId")
+    public DataResult<Product>
+    getByProductNameAndCategoryId(@RequestParam("productName") String productName, @RequestParam("categoryId") int categoryId) {
+        return productService.getByProductNameAndCategoryId(productName, categoryId);
+    }
+
+    @GetMapping("/getByProductNameContains")
+    public DataResult<List<Product>> getByProductNameContains(@RequestParam String productName) {
+        return productService.getByProductNameContains(productName);
+    }
+
+    @GetMapping("/getAllByPage")
+    public DataResult<List<Product>> getAll(int pageNo, int pageSize) {
+        return productService.getAll(pageNo - 1, pageSize);
+    }
+
+    @GetMapping("getAllSorted")
+    public DataResult<List<Product>> getAllSorted() {
+        return productService.getAllSorted();
+    }
+
    /* @PostMapping("/add")
     public Result add(Product product) {
         return new Result(true,"Urun eklendi");
